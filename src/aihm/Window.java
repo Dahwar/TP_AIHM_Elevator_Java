@@ -21,41 +21,41 @@ import javax.swing.KeyStroke;
 
 public class Window extends JFrame{
 	
-	JPanel cabin = new Cabin();
+	private JPanel cabin = new Cabin();
 	
 	// JMenuBar
-	JMenuBar JMenuBar = new JMenuBar();
-	JMenu JMenuFiles = new JMenu("Files");
-	JMenuItem itemFiles_Quit = new JMenuItem("Quit");
+	private JMenuBar JMenuBar = new JMenuBar();
+	private JMenu JMenuFiles = new JMenu("Files");
+	private JMenuItem itemFiles_Quit = new JMenuItem("Quit");
 	
-	JToolBar toolBar = new JToolBar();
-	Box elevatorInsideButtons = Box.createVerticalBox();
-	Box elevatorToolBarButtons = Box.createHorizontalBox();
-	JPanel JPElevatorInside = new JPanel();
+	private JToolBar toolBar = new JToolBar();
+	private Box elevatorInsideButtons = Box.createVerticalBox();
+	private Box elevatorToolBarButtons = Box.createHorizontalBox();
+	private JPanel JPElevatorInside = new JPanel();
 	
 	// Import Images
-	ImageIcon imgButton0 = new ImageIcon("images/Zero.png");
-	ImageIcon imgButton1 = new ImageIcon("images/One.png");
-	ImageIcon imgButton2 = new ImageIcon("images/Two.png");
-	ImageIcon imgButton0Selected = new ImageIcon("images/ZeroSelected.png");
-	ImageIcon imgButton1Selected = new ImageIcon("images/OneSelected.png");
-	ImageIcon imgButton2Selected = new ImageIcon("images/TwoSelected.png");
+	private ImageIcon imgButton0 = new ImageIcon("images/Zero.png");
+	private ImageIcon imgButton1 = new ImageIcon("images/One.png");
+	private ImageIcon imgButton2 = new ImageIcon("images/Two.png");
+	private ImageIcon imgButton0Selected = new ImageIcon("images/ZeroSelected.png");
+	private ImageIcon imgButton1Selected = new ImageIcon("images/OneSelected.png");
+	private ImageIcon imgButton2Selected = new ImageIcon("images/TwoSelected.png");
 	
 	// Button creation
-    JToggleButton buttonInside0 = new JToggleButton(imgButton0);
-    JToggleButton buttonInside1 = new JToggleButton(imgButton1);
-    JToggleButton buttonInside2 = new JToggleButton(imgButton2);
-    JToggleButton buttonToolBar0 = new JToggleButton(imgButton0);
-    JToggleButton buttonToolBar1 = new JToggleButton(imgButton1);
-    JToggleButton buttonToolBar2 = new JToggleButton(imgButton2);
+	private JToggleButton buttonInside0 = new JToggleButton(imgButton0);
+	private JToggleButton buttonInside1 = new JToggleButton(imgButton1);
+	private JToggleButton buttonInside2 = new JToggleButton(imgButton2);
+	private JToggleButton buttonToolBar0 = new JToggleButton(imgButton0);
+	private JToggleButton buttonToolBar1 = new JToggleButton(imgButton1);
+	private JToggleButton buttonToolBar2 = new JToggleButton(imgButton2);
 	
     // Elevator Button Model
-    ElevatorButtonModel modelButton0 = new ElevatorButtonModel();
-    ElevatorButtonModel modelButton1 = new ElevatorButtonModel();
-    ElevatorButtonModel modelButton2 = new ElevatorButtonModel();
+	private ElevatorButtonModel modelButton0 = new ElevatorButtonModel();
+	private ElevatorButtonModel modelButton1 = new ElevatorButtonModel();
+	private ElevatorButtonModel modelButton2 = new ElevatorButtonModel();
     
     // HashMap of buttons
-    HashMap<String, JToggleButton> HMButtonsFloor = new HashMap<String, JToggleButton>();
+	private HashMap<String, JToggleButton> HMButtonsFloor = new HashMap<String, JToggleButton>();
     
 	public Window(){
 		//Parameters for window
@@ -128,7 +128,7 @@ public class Window extends JFrame{
 		this.buttonInside2.setPreferredSize(new Dimension(50, 35));
 		this.buttonInside2.addActionListener(new ActionListener(){
 	    	  public void actionPerformed(ActionEvent event){
-	    		  buttonInside2.setSelected(!buttonInside2.isSelected());
+	    		  ((Cabin) cabin).addFloorToList(2);
 	    	  }
 	    });
 		this.elevatorInsideButtons.add(this.buttonInside2);
@@ -141,7 +141,7 @@ public class Window extends JFrame{
 		this.buttonInside1.setPreferredSize(new Dimension(50, 35));
 		this.buttonInside1.addActionListener(new ActionListener(){
 	    	  public void actionPerformed(ActionEvent event){
-	    		  buttonInside1.setSelected(!buttonInside1.isSelected());
+	    		  ((Cabin) cabin).addFloorToList(1);
 	    	  }
 	    });
 		this.elevatorInsideButtons.add(this.buttonInside1);
@@ -154,7 +154,7 @@ public class Window extends JFrame{
 		this.buttonInside0.setPreferredSize(new Dimension(50, 35));
 		this.buttonInside0.addActionListener(new ActionListener(){
 	    	  public void actionPerformed(ActionEvent event){
-	    		  buttonInside0.setSelected(!buttonInside0.isSelected());
+	    		  ((Cabin) cabin).addFloorToList(0);
 	    	  }
 	    });
 		this.elevatorInsideButtons.add(this.buttonInside0);
