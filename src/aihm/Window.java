@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
@@ -29,6 +30,8 @@ public class Window extends JFrame{
 	
 	JToolBar toolBar = new JToolBar();
 	Box elevatorInsideButtons = Box.createVerticalBox();
+	Box elevatorToolBarButtons = Box.createHorizontalBox();
+	JPanel JPElevatorInside = new JPanel();
 	
 	// Import Images
 	ImageIcon imgButton0 = new ImageIcon("images/Zero.png");
@@ -51,6 +54,11 @@ public class Window extends JFrame{
     JToggleButton buttonFloor1 = new JToggleButton (imgButtonCall);
     JToggleButton buttonFloor2 = new JToggleButton (imgButtonCall);
 	
+    // Elevator Button Model
+    ElevatorButtonModel modelButton0 = new ElevatorButtonModel();
+    ElevatorButtonModel modelButton1 = new ElevatorButtonModel();
+    ElevatorButtonModel modelButton2 = new ElevatorButtonModel();
+    
 	public Window(){
 		//Parameters for window
 		this.setTitle("AIHM Elevator");
@@ -71,6 +79,14 @@ public class Window extends JFrame{
 	    });
 		this.setJMenuBar(this.JMenuBar);
 		
+		// Model
+		this.buttonInside0.setModel(modelButton0);
+		this.buttonToolBar0.setModel(modelButton0);
+		this.buttonInside1.setModel(modelButton1);
+		this.buttonToolBar1.setModel(modelButton1);
+		this.buttonInside2.setModel(modelButton2);
+		this.buttonToolBar2.setModel(modelButton2);
+		
 		// Set selected icon for button
 		this.buttonInside0.setSelectedIcon(this.imgButton0Selected);
 		this.buttonInside1.setSelectedIcon(this.imgButton1Selected);
@@ -82,54 +98,77 @@ public class Window extends JFrame{
 		this.buttonFloor1.setSelectedIcon(this.imgButtonCallSelected);
 		this.buttonFloor2.setSelectedIcon(this.imgButtonCallSelected);
 		
+		this.elevatorToolBarButtons.add(Box.createRigidArea(new Dimension(10,0)));
+		
 		this.buttonToolBar0.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.buttonToolBar0.setFocusable(false);
 		this.buttonToolBar0.setMaximumSize(new Dimension(35, 50));
 		this.buttonToolBar0.setMinimumSize(new Dimension(35, 50));
 		this.buttonToolBar0.setPreferredSize(new Dimension(35, 50));
-		this.toolBar.add(this.buttonToolBar0);
+		this.elevatorToolBarButtons.add(this.buttonToolBar0);
+		this.elevatorToolBarButtons.add(Box.createRigidArea(new Dimension(10,0)));
 		
 		this.buttonToolBar1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.buttonToolBar1.setFocusable(false);
 		this.buttonToolBar1.setMaximumSize(new Dimension(35, 50));
 		this.buttonToolBar1.setMinimumSize(new Dimension(35, 50));
 		this.buttonToolBar1.setPreferredSize(new Dimension(35, 50));
-		this.toolBar.add(this.buttonToolBar1);
+		this.elevatorToolBarButtons.add(this.buttonToolBar1);
+		this.elevatorToolBarButtons.add(Box.createRigidArea(new Dimension(10,0)));
 		
 		this.buttonToolBar2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.buttonToolBar2.setFocusable(false);
 		this.buttonToolBar2.setMaximumSize(new Dimension(35, 50));
 		this.buttonToolBar2.setMinimumSize(new Dimension(35, 50));
 		this.buttonToolBar2.setPreferredSize(new Dimension(35, 50));
-		this.toolBar.add(this.buttonToolBar2);
+		this.elevatorToolBarButtons.add(this.buttonToolBar2);
 		
-		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,5)));
-		
-		this.buttonInside0.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		this.buttonInside0.setFocusable(false);
-		this.buttonInside0.setMaximumSize(new Dimension(50, 35));
-		this.buttonInside0.setMinimumSize(new Dimension(50, 35));
-		this.buttonInside0.setPreferredSize(new Dimension(50, 35));
-		this.elevatorInsideButtons.add(this.buttonInside0);
-		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,5)));
-		
-		this.buttonInside1.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		this.buttonInside1.setFocusable(false);
-		this.buttonInside1.setMaximumSize(new Dimension(50, 35));
-		this.buttonInside1.setMinimumSize(new Dimension(50, 35));
-		this.buttonInside1.setPreferredSize(new Dimension(50, 35));
-		this.elevatorInsideButtons.add(this.buttonInside1);
-		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,5)));
+		this.toolBar.add(this.elevatorToolBarButtons);
 		
 		this.buttonInside2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.buttonInside2.setFocusable(false);
 		this.buttonInside2.setMaximumSize(new Dimension(50, 35));
 		this.buttonInside2.setMinimumSize(new Dimension(50, 35));
 		this.buttonInside2.setPreferredSize(new Dimension(50, 35));
+		this.buttonInside2.addActionListener(new ActionListener(){
+	    	  public void actionPerformed(ActionEvent event){
+	    		  buttonInside2.setSelected(!buttonInside2.isSelected());
+	    	  }
+	    });
 		this.elevatorInsideButtons.add(this.buttonInside2);
+		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,10)));
 		
-		this.getContentPane().add(elevatorInsideButtons, BorderLayout.EAST);
+		this.buttonInside1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.buttonInside1.setFocusable(false);
+		this.buttonInside1.setMaximumSize(new Dimension(50, 35));
+		this.buttonInside1.setMinimumSize(new Dimension(50, 35));
+		this.buttonInside1.setPreferredSize(new Dimension(50, 35));
+		this.buttonInside1.addActionListener(new ActionListener(){
+	    	  public void actionPerformed(ActionEvent event){
+	    		  buttonInside1.setSelected(!buttonInside1.isSelected());
+	    	  }
+	    });
+		this.elevatorInsideButtons.add(this.buttonInside1);
+		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,10)));
+		
+		this.buttonInside0.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.buttonInside0.setFocusable(false);
+		this.buttonInside0.setMaximumSize(new Dimension(50, 35));
+		this.buttonInside0.setMinimumSize(new Dimension(50, 35));
+		this.buttonInside0.setPreferredSize(new Dimension(50, 35));
+		this.buttonInside0.addActionListener(new ActionListener(){
+	    	  public void actionPerformed(ActionEvent event){
+	    		  buttonInside0.setSelected(!buttonInside0.isSelected());
+	    	  }
+	    });
+		this.elevatorInsideButtons.add(this.buttonInside0);
+		
+		this.JPElevatorInside.add(this.elevatorInsideButtons);
+		
+		this.getContentPane().add(JPElevatorInside, BorderLayout.EAST);
 		this.getContentPane().add(toolBar, BorderLayout.NORTH);
-		this.setVisible(true);		
+		this.setVisible(true);
+		
+		
 	}
 }
