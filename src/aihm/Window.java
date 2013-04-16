@@ -21,7 +21,7 @@ import javax.swing.KeyStroke;
 
 public class Window extends JFrame{
 	
-	JPanel cabin;
+	JPanel cabin = new Cabin();
 	
 	// JMenuBar
 	JMenuBar JMenuBar = new JMenuBar();
@@ -37,11 +37,9 @@ public class Window extends JFrame{
 	ImageIcon imgButton0 = new ImageIcon("images/Zero.png");
 	ImageIcon imgButton1 = new ImageIcon("images/One.png");
 	ImageIcon imgButton2 = new ImageIcon("images/Two.png");
-	ImageIcon imgButtonCall = new ImageIcon("images/Call.png");
 	ImageIcon imgButton0Selected = new ImageIcon("images/ZeroSelected.png");
 	ImageIcon imgButton1Selected = new ImageIcon("images/OneSelected.png");
 	ImageIcon imgButton2Selected = new ImageIcon("images/TwoSelected.png");
-	ImageIcon imgButtonCallSelected = new ImageIcon("images/CallSelected.png");
 	
 	// Button creation
     JToggleButton buttonInside0 = new JToggleButton(imgButton0);
@@ -50,9 +48,6 @@ public class Window extends JFrame{
     JToggleButton buttonToolBar0 = new JToggleButton(imgButton0);
     JToggleButton buttonToolBar1 = new JToggleButton(imgButton1);
     JToggleButton buttonToolBar2 = new JToggleButton(imgButton2);
-    JToggleButton buttonFloor0 = new JToggleButton (imgButtonCall);
-    JToggleButton buttonFloor1 = new JToggleButton (imgButtonCall);
-    JToggleButton buttonFloor2 = new JToggleButton (imgButtonCall);
 	
     // Elevator Button Model
     ElevatorButtonModel modelButton0 = new ElevatorButtonModel();
@@ -97,14 +92,6 @@ public class Window extends JFrame{
 		this.buttonToolBar0.setSelectedIcon(this.imgButton0Selected);
 		this.buttonToolBar1.setSelectedIcon(this.imgButton1Selected);
 		this.buttonToolBar2.setSelectedIcon(this.imgButton2Selected);
-		this.buttonFloor0.setSelectedIcon(this.imgButtonCallSelected);
-		this.buttonFloor1.setSelectedIcon(this.imgButtonCallSelected);
-		this.buttonFloor2.setSelectedIcon(this.imgButtonCallSelected);
-		
-		// Configure button floor
-		this.buttonFloor0.setFocusable(false);
-		this.buttonFloor1.setFocusable(false);
-		this.buttonFloor2.setFocusable(false);
 		
 		// Configure ToolBar
 		this.elevatorToolBarButtons.add(Box.createRigidArea(new Dimension(10,0)));
@@ -173,13 +160,6 @@ public class Window extends JFrame{
 		this.elevatorInsideButtons.add(this.buttonInside0);
 		
 		this.JPElevatorInside.add(this.elevatorInsideButtons);
-		
-		this.HMButtonsFloor.put("floor0", this.buttonFloor0);
-		this.HMButtonsFloor.put("floor1", this.buttonFloor1);
-		this.HMButtonsFloor.put("floor2", this.buttonFloor2);
-		this.cabin = new Cabin(this.HMButtonsFloor);
-		
-		//cabin.add(this.buttonFloor0);
 		
 		this.setLayout(new BorderLayout());
 		this.getContentPane().add(this.JPElevatorInside, BorderLayout.EAST);
