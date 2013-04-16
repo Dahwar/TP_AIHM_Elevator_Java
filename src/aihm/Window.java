@@ -21,7 +21,7 @@ import javax.swing.KeyStroke;
 
 public class Window extends JFrame{
 	
-	private JPanel cabin = new Cabin();
+	private JPanel cabin;
 	
 	// JMenuBar
 	private JMenuBar JMenuBar = new JMenuBar();
@@ -55,7 +55,7 @@ public class Window extends JFrame{
 	private ElevatorButtonModel modelButton2 = new ElevatorButtonModel();
     
     // HashMap of buttons
-	private HashMap<String, JToggleButton> HMButtonsFloor = new HashMap<String, JToggleButton>();
+	private HashMap<Integer, JToggleButton> HMButtons = new HashMap<>();
     
 	public Window(){
 		//Parameters for window
@@ -158,6 +158,12 @@ public class Window extends JFrame{
 	    	  }
 	    });
 		this.elevatorInsideButtons.add(this.buttonInside0);
+		
+		this.HMButtons.put(0, this.buttonInside0);
+		this.HMButtons.put(1, this.buttonInside1);
+		this.HMButtons.put(2, this.buttonInside2);
+		
+		 this.cabin = new Cabin(this.HMButtons);
 		
 		this.JPElevatorInside.add(this.elevatorInsideButtons);
 		

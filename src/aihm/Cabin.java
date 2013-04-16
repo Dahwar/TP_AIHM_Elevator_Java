@@ -28,14 +28,34 @@ public class Cabin extends JPanel{
 	
     private Timer timer;
 	private Timer timerPause;
-    
+	private Timer timerButtonFloor0 = new Timer(750, new ActionListener(){  
+		public void actionPerformed(ActionEvent evt){
+			buttonFloor0.setSelected(false);
+			timerButtonFloor0.stop();
+		}
+	});	
+	private Timer timerButtonFloor1 = new Timer(750, new ActionListener(){  
+		public void actionPerformed(ActionEvent evt){
+			buttonFloor1.setSelected(false);
+			timerButtonFloor1.stop();
+		}
+	});	
+	private Timer timerButtonFloor2 = new Timer(750, new ActionListener(){  
+		public void actionPerformed(ActionEvent evt){
+			buttonFloor2.setSelected(false);
+			timerButtonFloor2.stop();
+		}
+	});	
+	
 	int sizeElevX=100;
 	int sizeElevY=150;
 	int coef = 1000;
 	
-	LinkedList<Integer> listFloor = new LinkedList<>();
+	private LinkedList<Integer> listFloor = new LinkedList<>();
+	private HashMap<Integer, JToggleButton> HMButtons;
 	
-	public Cabin(){
+	public Cabin(HashMap<Integer, JToggleButton> hm){
+		this.HMButtons = hm;
 		ActionListener taskPerformer = new ActionListener(){  
 			public void actionPerformed(ActionEvent evt){
 				switch(currentMove){
@@ -49,6 +69,9 @@ public class Cabin extends JPanel{
 								else
 									listFloor.remove(0);
 							}
+							else
+								listFloor.remove(0);
+								HMButtons.get(currentPosition).setSelected(false);
 						}
 						break;
 						
@@ -64,6 +87,7 @@ public class Cabin extends JPanel{
 						
 						if(listFloor.get(0)==currentPosition){
 							currentMove = CabinMoves.STAY;
+							HMButtons.get(currentPosition).setSelected(false);
 							timer.stop();
 							timerPause.start();
 							listFloor.remove(0);
@@ -82,6 +106,7 @@ public class Cabin extends JPanel{
 						
 						if(listFloor.get(0)==currentPosition){
 							currentMove = CabinMoves.STAY;
+							HMButtons.get(currentPosition).setSelected(false);
 							timer.stop();
 							timerPause.start();
 							listFloor.remove(0);
@@ -117,20 +142,41 @@ public class Cabin extends JPanel{
 		
 		this.setLayout(null);
 		
-		this.buttonFloor0.setSelectedIcon(this.imgButtonCallSelected);
-		this.buttonFloor0.setFocusable(false);
-		this.buttonFloor0.setBounds((int)(positionX+150), 50, 50, 50);
-		this.add(this.buttonFloor0);
+		this.buttonFloor2.setSelectedIcon(this.imgButtonCallSelected);
+		this.buttonFloor2.setFocusable(false);
+		this.buttonFloor2.setBounds((int)(positionX+150), 50, 50, 50);
+		this.buttonFloor2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				addFloorToList(2);
+				buttonFloor2.setSelected(true);
+				timerButtonFloor2.start();
+	    	}
+	    });
+		this.add(this.buttonFloor2);		
 		
 		this.buttonFloor1.setSelectedIcon(this.imgButtonCallSelected);
 		this.buttonFloor1.setFocusable(false);
 		this.buttonFloor1.setBounds((int)(positionX+150), 210, 50, 50);
+		this.buttonFloor1.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				addFloorToList(1);
+				buttonFloor1.setSelected(true);
+				timerButtonFloor1.start();
+	    	}
+	    });
 		this.add(this.buttonFloor1);
 		
-		this.buttonFloor2.setSelectedIcon(this.imgButtonCallSelected);
-		this.buttonFloor2.setFocusable(false);
-		this.buttonFloor2.setBounds((int)(positionX+150), 380, 50, 50);
-		this.add(this.buttonFloor2);
+		this.buttonFloor0.setSelectedIcon(this.imgButtonCallSelected);
+		this.buttonFloor0.setFocusable(false);
+		this.buttonFloor0.setBounds((int)(positionX+150), 380, 50, 50);
+		this.buttonFloor0.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				addFloorToList(0);
+				buttonFloor0.setSelected(true);
+				timerButtonFloor0.start();
+	    	}
+	    });
+		this.add(this.buttonFloor0);
 		
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, (int)width, (int)height);
@@ -144,8 +190,10 @@ public class Cabin extends JPanel{
 	
 	public void addFloorToList(int floor){
 		if(floor>=0 && floor<=2){
-			this.listFloor.add(floor);
-			System.out.println(floor);
+			if(!this.listFloor.contains(floor)){
+				this.listFloor.add(floor);
+				HMButtons.get(floor).setSelected(true);
+			}
 		}
 	}
 }
