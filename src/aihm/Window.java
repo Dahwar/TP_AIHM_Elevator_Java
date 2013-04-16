@@ -1,12 +1,12 @@
 package aihm;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -18,10 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 public class Window extends JFrame{
+	
+	JPanel cabin;
 	
 	// JMenuBar
 	JMenuBar JMenuBar = new JMenuBar();
@@ -58,6 +58,9 @@ public class Window extends JFrame{
     ElevatorButtonModel modelButton0 = new ElevatorButtonModel();
     ElevatorButtonModel modelButton1 = new ElevatorButtonModel();
     ElevatorButtonModel modelButton2 = new ElevatorButtonModel();
+    
+    // HashMap of buttons
+    HashMap<String, JToggleButton> HMButtonsFloor = new HashMap<String, JToggleButton>();
     
 	public Window(){
 		//Parameters for window
@@ -98,8 +101,13 @@ public class Window extends JFrame{
 		this.buttonFloor1.setSelectedIcon(this.imgButtonCallSelected);
 		this.buttonFloor2.setSelectedIcon(this.imgButtonCallSelected);
 		
-		this.elevatorToolBarButtons.add(Box.createRigidArea(new Dimension(10,0)));
+		// Configure button floor
+		this.buttonFloor0.setFocusable(false);
+		this.buttonFloor1.setFocusable(false);
+		this.buttonFloor2.setFocusable(false);
 		
+		// Configure ToolBar
+		this.elevatorToolBarButtons.add(Box.createRigidArea(new Dimension(10,0)));
 		this.buttonToolBar0.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.buttonToolBar0.setFocusable(false);
 		this.buttonToolBar0.setMaximumSize(new Dimension(35, 50));
@@ -125,6 +133,7 @@ public class Window extends JFrame{
 		
 		this.toolBar.add(this.elevatorToolBarButtons);
 		
+		// Configure Inside Button
 		this.buttonInside2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.buttonInside2.setFocusable(false);
 		this.buttonInside2.setMaximumSize(new Dimension(50, 35));
@@ -165,8 +174,17 @@ public class Window extends JFrame{
 		
 		this.JPElevatorInside.add(this.elevatorInsideButtons);
 		
-		this.getContentPane().add(JPElevatorInside, BorderLayout.EAST);
-		this.getContentPane().add(toolBar, BorderLayout.NORTH);
+		this.HMButtonsFloor.put("floor0", this.buttonFloor0);
+		this.HMButtonsFloor.put("floor1", this.buttonFloor1);
+		this.HMButtonsFloor.put("floor2", this.buttonFloor2);
+		this.cabin = new Cabin(this.HMButtonsFloor);
+		
+		//cabin.add(this.buttonFloor0);
+		
+		this.setLayout(new BorderLayout());
+		this.getContentPane().add(this.JPElevatorInside, BorderLayout.EAST);
+		this.getContentPane().add(this.toolBar, BorderLayout.NORTH);
+		this.getContentPane().add(this.cabin, BorderLayout.CENTER);
 		this.setVisible(true);
 		
 		
