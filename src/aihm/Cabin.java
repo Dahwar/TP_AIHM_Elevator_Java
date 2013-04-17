@@ -14,6 +14,8 @@ import javax.swing.Timer;
 
 public class Cabin extends JPanel{
 
+	private Window myWindow;
+	
 	private enum CabinMoves {UP, DOWN, STAY};
 	
 	private CabinMoves currentMove = CabinMoves.STAY;
@@ -54,7 +56,8 @@ public class Cabin extends JPanel{
 	private LinkedList<Integer> listFloor = new LinkedList<>();
 	private HashMap<Integer, JToggleButton> HMButtons;
 	
-	public Cabin(HashMap<Integer, JToggleButton> hm){
+	public Cabin(HashMap<Integer, JToggleButton> hm, Window window){
+		this.myWindow = window;
 		this.HMButtons = hm;
 		ActionListener taskPerformer = new ActionListener(){  
 			public void actionPerformed(ActionEvent evt){
@@ -77,12 +80,18 @@ public class Cabin extends JPanel{
 						
 					case UP:
 						coef-=5;
-						if(coef==0)
+						if(coef==0){
 							currentPosition=2;
-						else if(coef==500)
+							myWindow.setCabinLevel(currentPosition);
+						}
+						else if(coef==500){
 							currentPosition=1;
-						else if(coef==1000)
+							myWindow.setCabinLevel(currentPosition);
+						}
+						else if(coef==1000){
 							currentPosition=0;
+							myWindow.setCabinLevel(currentPosition);
+						}
 						else;
 						
 						if(listFloor.get(0)==currentPosition){
@@ -96,12 +105,18 @@ public class Cabin extends JPanel{
 						
 					case DOWN:
 						coef+=5;
-						if(coef==0)
+						if(coef==0){
 							currentPosition=2;
-						else if(coef==500)
+							myWindow.setCabinLevel(currentPosition);
+						}
+						else if(coef==500){
 							currentPosition=1;
-						else if(coef==1000)
+							myWindow.setCabinLevel(currentPosition);
+						}
+						else if(coef==1000){
 							currentPosition=0;
+							myWindow.setCabinLevel(currentPosition);
+						}
 						else;
 						
 						if(listFloor.get(0)==currentPosition){

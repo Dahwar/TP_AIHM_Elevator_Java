@@ -11,10 +11,12 @@ import java.util.HashMap;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
@@ -57,6 +59,13 @@ public class Window extends JFrame{
     // HashMap of buttons
 	private HashMap<Integer, JToggleButton> HMButtons = new HashMap<>();
     
+	// Label
+	private JLabel JLelevator = new JLabel("Elevator");
+	private JLabel JLcabin = new JLabel("Cabin");
+	
+	// Level Screen
+	private JTextField cabinLevel = new JTextField("0");
+	
 	public Window(){
 		//Parameters for window
 		this.setTitle("AIHM Elevator");
@@ -120,6 +129,14 @@ public class Window extends JFrame{
 		
 		this.toolBar.add(this.elevatorToolBarButtons);
 		
+		// --
+		this.cabinLevel.setFocusable(false);
+		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,10)));
+		this.elevatorInsideButtons.add(this.JLcabin);
+		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,10)));
+		this.elevatorInsideButtons.add(this.cabinLevel);
+		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,10)));
+		
 		// Configure Inside Button
 		this.buttonInside2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.buttonInside2.setFocusable(false);
@@ -163,7 +180,8 @@ public class Window extends JFrame{
 		this.HMButtons.put(1, this.buttonInside1);
 		this.HMButtons.put(2, this.buttonInside2);
 		
-		 this.cabin = new Cabin(this.HMButtons);
+		this.cabin = new Cabin(this.HMButtons, this);
+		this.cabin.add(this.JLelevator);
 		
 		this.JPElevatorInside.add(this.elevatorInsideButtons);
 		
@@ -172,7 +190,9 @@ public class Window extends JFrame{
 		this.getContentPane().add(this.toolBar, BorderLayout.NORTH);
 		this.getContentPane().add(this.cabin, BorderLayout.CENTER);
 		this.setVisible(true);
-		
-		
+	}
+	
+	public void setCabinLevel(int level){
+		this.cabinLevel.setText(String.valueOf(level));
 	}
 }
