@@ -5,6 +5,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.DefaultButtonModel;
 
+/**
+ * 
+ * Model for synchronized the buttons
+ * 
+ * @author Florent LACROIX (Dahwar)
+ * @version 1.0
+ *
+ */
+
 public class ElevatorButtonModel extends DefaultButtonModel implements ActionListener{
 	
 	public ElevatorButtonModel(){

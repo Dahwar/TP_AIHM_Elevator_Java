@@ -12,22 +12,35 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
 
+/**
+ * 
+ * Create and animate a elevator, with a state machine
+ * 
+ * @author Florent LACROIX (Dahwar)
+ * @version 1.0
+ *
+ */
+
 public class Cabin extends JPanel{
 
+	// the current Window
 	private Window myWindow;
 	
+	// Init State Machine
 	private enum CabinMoves {UP, DOWN, STAY};
-	
 	private CabinMoves currentMove = CabinMoves.STAY;
 	private int currentPosition = 0;
 	
+	// Import Images
 	private ImageIcon imgButtonCall = new ImageIcon("images/Call.png");
 	private ImageIcon imgButtonCallSelected = new ImageIcon("images/CallSelected.png");
 	
+	// Create Buttons
 	private JToggleButton buttonFloor0 = new JToggleButton (imgButtonCall);
     private JToggleButton buttonFloor1 = new JToggleButton (imgButtonCall);
     private JToggleButton buttonFloor2 = new JToggleButton (imgButtonCall);
 	
+    // Timers
     private Timer timer;
 	private Timer timerPause;
 	private Timer timerButtonFloor0 = new Timer(750, new ActionListener(){  
@@ -49,16 +62,22 @@ public class Cabin extends JPanel{
 		}
 	});	
 	
+	// Size of the cabin and coef for position
 	int sizeElevX=100;
 	int sizeElevY=150;
 	int coef = 1000;
 	
+	// List of floor called
 	private LinkedList<Integer> listFloor = new LinkedList<>();
+	
+	// List of buttons (inside/toolbar)
 	private HashMap<Integer, JToggleButton> HMButtons;
 	
 	public Cabin(HashMap<Integer, JToggleButton> hm, Window window){
 		this.myWindow = window;
 		this.HMButtons = hm;
+		
+		// State Machine
 		ActionListener taskPerformer = new ActionListener(){  
 			public void actionPerformed(ActionEvent evt){
 				switch(currentMove){
@@ -132,6 +151,7 @@ public class Cabin extends JPanel{
 			}  
 		};
 		
+		// Pause for each level
 		ActionListener pause = new ActionListener(){  
 			public void actionPerformed(ActionEvent evt){
 				timer.start();
@@ -139,6 +159,7 @@ public class Cabin extends JPanel{
 			}
 		};
 		
+		// Start the state machine
 		this.timer = new Timer(10, taskPerformer);
 		this.timer.start();
 		
@@ -157,6 +178,7 @@ public class Cabin extends JPanel{
 		
 		this.setLayout(null);
 		
+		// Set the buttons and their positions
 		this.buttonFloor2.setSelectedIcon(this.imgButtonCallSelected);
 		this.buttonFloor2.setFocusable(false);
 		this.buttonFloor2.setBounds((int)(positionX+150), 50, 50, 50);
@@ -193,6 +215,7 @@ public class Cabin extends JPanel{
 	    });
 		this.add(this.buttonFloor0);
 		
+		// Draw the elevator and the cabin
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, (int)width, (int)height);
 	    g.setColor(Color.BLACK);
@@ -203,6 +226,14 @@ public class Cabin extends JPanel{
 	    g.fillRect((int)positionX+sizeElevX/2+1, (int)positionY, sizeElevX/2-1, sizeElevY);
 	}
 	
+	
+	/**
+	 * 
+	 * If a floor is called and isn't in the list of floor called, add him
+	 * 
+	 * @param floor floor to add in the list
+	 * 
+	 */
 	public void addFloorToList(int floor){
 		if(floor>=0 && floor<=2){
 			if(!this.listFloor.contains(floor)){

@@ -21,19 +21,22 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 
+/**
+ * 
+ * Instantiate the Window and create all necessary components
+ * 
+ * @see Cabin
+ * 
+ * @author Florent LACROIX (Dahwar)
+ * @version 1.0
+ *
+ */
+
 public class Window extends JFrame{
 	
+	// Elevator Panel
 	private JPanel cabin;
-	
-	// JMenuBar
-	private JMenuBar JMenuBar = new JMenuBar();
-	private JMenu JMenuFiles = new JMenu("Files");
-	private JMenuItem itemFiles_Quit = new JMenuItem("Quit");
-	
-	private JToolBar toolBar = new JToolBar();
-	private Box elevatorInsideButtons = Box.createVerticalBox();
-	private Box elevatorToolBarButtons = Box.createHorizontalBox();
-	private JPanel JPElevatorInside = new JPanel();
+	private JLabel JLelevator = new JLabel("Elevator");
 	
 	// Import Images
 	private ImageIcon imgButton0 = new ImageIcon("images/Zero.png");
@@ -43,13 +46,26 @@ public class Window extends JFrame{
 	private ImageIcon imgButton1Selected = new ImageIcon("images/OneSelected.png");
 	private ImageIcon imgButton2Selected = new ImageIcon("images/TwoSelected.png");
 	
-	// Button creation
-	private JToggleButton buttonInside0 = new JToggleButton(imgButton0);
-	private JToggleButton buttonInside1 = new JToggleButton(imgButton1);
-	private JToggleButton buttonInside2 = new JToggleButton(imgButton2);
+	// JMenuBar
+	private JMenuBar JMenuBar = new JMenuBar();
+	private JMenu JMenuFiles = new JMenu("Files");
+	private JMenuItem itemFiles_Quit = new JMenuItem("Quit");
+	
+	// JToolBar
+	private JToolBar toolBar = new JToolBar();
+	private Box elevatorToolBarButtons = Box.createHorizontalBox();
 	private JToggleButton buttonToolBar0 = new JToggleButton(imgButton0);
 	private JToggleButton buttonToolBar1 = new JToggleButton(imgButton1);
 	private JToggleButton buttonToolBar2 = new JToggleButton(imgButton2);
+	
+	// InsideCabin
+	private JPanel JPElevatorInside = new JPanel();
+	private Box elevatorInsideButtons = Box.createVerticalBox();
+	private JToggleButton buttonInside0 = new JToggleButton(imgButton0);
+	private JToggleButton buttonInside1 = new JToggleButton(imgButton1);
+	private JToggleButton buttonInside2 = new JToggleButton(imgButton2);
+	private JTextField cabinLevel = new JTextField("0");
+	private JLabel JLcabin = new JLabel("Cabin");
 	
     // Elevator Button Model
 	private ElevatorButtonModel modelButton0 = new ElevatorButtonModel();
@@ -58,14 +74,7 @@ public class Window extends JFrame{
     
     // HashMap of buttons
 	private HashMap<Integer, JToggleButton> HMButtons = new HashMap<>();
-    
-	// Label
-	private JLabel JLelevator = new JLabel("Elevator");
-	private JLabel JLcabin = new JLabel("Cabin");
-	
-	// Level Screen
-	private JTextField cabinLevel = new JTextField("0");
-	
+
 	public Window(){
 		//Parameters for window
 		this.setTitle("AIHM Elevator");
@@ -104,11 +113,13 @@ public class Window extends JFrame{
 		
 		// Configure ToolBar
 		this.elevatorToolBarButtons.add(Box.createRigidArea(new Dimension(10,0)));
+		
 		this.buttonToolBar0.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.buttonToolBar0.setFocusable(false);
 		this.buttonToolBar0.setMaximumSize(new Dimension(35, 50));
 		this.buttonToolBar0.setMinimumSize(new Dimension(35, 50));
 		this.buttonToolBar0.setPreferredSize(new Dimension(35, 50));
+		
 		this.elevatorToolBarButtons.add(this.buttonToolBar0);
 		this.elevatorToolBarButtons.add(Box.createRigidArea(new Dimension(10,0)));
 		
@@ -117,6 +128,7 @@ public class Window extends JFrame{
 		this.buttonToolBar1.setMaximumSize(new Dimension(35, 50));
 		this.buttonToolBar1.setMinimumSize(new Dimension(35, 50));
 		this.buttonToolBar1.setPreferredSize(new Dimension(35, 50));
+		
 		this.elevatorToolBarButtons.add(this.buttonToolBar1);
 		this.elevatorToolBarButtons.add(Box.createRigidArea(new Dimension(10,0)));
 		
@@ -125,19 +137,20 @@ public class Window extends JFrame{
 		this.buttonToolBar2.setMaximumSize(new Dimension(35, 50));
 		this.buttonToolBar2.setMinimumSize(new Dimension(35, 50));
 		this.buttonToolBar2.setPreferredSize(new Dimension(35, 50));
+		
 		this.elevatorToolBarButtons.add(this.buttonToolBar2);
 		
 		this.toolBar.add(this.elevatorToolBarButtons);
 		
-		// --
+		// Configure Inside Cabin
 		this.cabinLevel.setFocusable(false);
+		
 		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,10)));
 		this.elevatorInsideButtons.add(this.JLcabin);
 		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,10)));
 		this.elevatorInsideButtons.add(this.cabinLevel);
 		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,10)));
 		
-		// Configure Inside Button
 		this.buttonInside2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.buttonInside2.setFocusable(false);
 		this.buttonInside2.setMaximumSize(new Dimension(50, 35));
@@ -148,6 +161,7 @@ public class Window extends JFrame{
 	    		  ((Cabin) cabin).addFloorToList(2);
 	    	  }
 	    });
+		
 		this.elevatorInsideButtons.add(this.buttonInside2);
 		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,10)));
 		
@@ -161,6 +175,7 @@ public class Window extends JFrame{
 	    		  ((Cabin) cabin).addFloorToList(1);
 	    	  }
 	    });
+		
 		this.elevatorInsideButtons.add(this.buttonInside1);
 		this.elevatorInsideButtons.add(Box.createRigidArea(new Dimension(0,10)));
 		
@@ -174,17 +189,23 @@ public class Window extends JFrame{
 	    		  ((Cabin) cabin).addFloorToList(0);
 	    	  }
 	    });
+		
 		this.elevatorInsideButtons.add(this.buttonInside0);
 		
+		this.JPElevatorInside.add(this.elevatorInsideButtons);
+		
+		// Put Buttons in HashMap
 		this.HMButtons.put(0, this.buttonInside0);
 		this.HMButtons.put(1, this.buttonInside1);
 		this.HMButtons.put(2, this.buttonInside2);
 		
+		// Instantiate Cabin with the HashMap of Buttons and the current Window
 		this.cabin = new Cabin(this.HMButtons, this);
+		
+		// Add JLabel to the Panel
 		this.cabin.add(this.JLelevator);
 		
-		this.JPElevatorInside.add(this.elevatorInsideButtons);
-		
+		// Configuration of the Window	
 		this.setLayout(new BorderLayout());
 		this.getContentPane().add(this.JPElevatorInside, BorderLayout.EAST);
 		this.getContentPane().add(this.toolBar, BorderLayout.NORTH);
@@ -192,6 +213,13 @@ public class Window extends JFrame{
 		this.setVisible(true);
 	}
 	
+	/**
+	 * 
+	 * Change the level on the elevator screen (JTextField)
+	 * 
+	 * @param level level to show on the JTextField cabinLevel
+	 * 
+	 */
 	public void setCabinLevel(int level){
 		this.cabinLevel.setText(String.valueOf(level));
 	}
